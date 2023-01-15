@@ -7,11 +7,12 @@ from sklearn.ensemble import RandomForestRegressor
 import tensorflow as tf
 from sklearn.preprocessing import normalize
 from sklearn.metrics import recall_score, r2_score
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 from scikeras.wrappers import KerasClassifier
 
+
 DATA = "2017_2019.csv"
-DAYS = 13
+DAYS = 10
 
 
 class SunlightModel():
@@ -135,9 +136,34 @@ class SunlightModel():
         x_train, x_test, y_train, y_test = train_test_split(X, Y)
         # x_train,x_val,y_train,y_val = train_test_split(x_train,y_train)
 
-        rf = RandomForestRegressor()
-        rf.fit(x_train, y_train)
-        print(r2_score(y_test.values, rf.predict(x_test)))
+        rf = RandomForestRegressor(
+            max_features='sqrt', max_depth=11, bootstrap=False)
+
+        # [4, 20, 100, 500, 2000] # Number of trees in the forest
+        n_estimators = [100, 200, 300, 400, 500, 600, 700, 800, 900]
+
+        # [ 7, 15] # Maximum number of levels in the tree
+        # Number of features to consider at every split
+
+        # , 3, 5, 7] # Minimum number of samples required to split a node
+        min_samples_split = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+        # , 3] # Minimum number of samples required at each leaf node
+        # Method of selecting samples for training each tree
+
+        param_grid = {
+            'n_estimators': n_estimators,
+            'min_samples_split': min_samples_split,
+        }
+
+        print("Beginning grid search")
+        forest = RandomForestRegressor(random_state=0)
+        forest_grid = RandomizedSearchCV(estimator=rf, param_distributions=param_grid,
+                                         cv=3, verbose=2, n_jobs=-1)
+
+        forest_grid.fit(x_train, y_train)
+        print(forest_grid.best_params_)
+
+        print(r2_score(y_test.values, forest_grid.predict(x_test)))
         return rf
 
     def generate_random_sample(self, rf, X):
