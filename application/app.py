@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 from weather.sunlight_model import generate
 import openai
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 app = Flask(__name__)
