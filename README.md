@@ -19,6 +19,8 @@ Aby uruchomić aplikację lokalnie:
             flask
             openai
 
-3. Uruchom aplikację za pomocą
+3. Podmień klucz OpenAI na własny (w pliku app.py, zmienna openai.api_key) - polityka OpenAI nie pozwala na udostępnianie klucza publicznie na github.
+
+4. Uruchom aplikację za pomocą
 
             python -m flask run
