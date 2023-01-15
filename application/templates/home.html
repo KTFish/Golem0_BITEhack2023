@@ -4,9 +4,10 @@
     <title>Calculator</title>
   </head>
   <body>
-    <form>
-      <ul class="form-style-1" action="/calculate" method="post">
-          <li><label>List of devices<span class="required">*</span></label><input type="text" name="devices" id="devices" class="field-divided" placeholder="Provide list of devices, using commas" /></li>
+    <form action="/calculate" method="post">
+      <h3 class="title">Calculator for solar panels efficiency for specified household located in Izmir, Turkey.</h3>
+      <ul class="form-style-1" >
+          <li><label>List of devices<span class="required">*</span></label><textarea name="devices" id="devices" class="field-long field-textarea" placeholder="Provide list of devices, using commas" /></textarea></li>
           <li><label>Household members<span class="required">*</span></label><input type="number" name="no_adults" id="no_adults" class="field-divided" placeholder="Adults" /> <input type="number" name="no_children" id="no_children" class="field-divided" placeholder="Children" /></li>
           <li>
               <label>Month<span class="required">*</span></label>
@@ -15,7 +16,11 @@
           <li><label>House details<span class="required">*</span></label><input type="number" name="house_age" id="house_age" class="field-divided" placeholder="Age in years" /> <input type="number" name="house_size" id="house_size" class="field-divided" placeholder="Size in squared meters" /></li>
           <li>
               <label>Solar panels area<span class="required">*</span></label>
-              <input type="number" name="solar_area" id="solar_area" class="field-long" />
+              <input type="number" name="solar_area" id="solar_area" class="field-long" placeholder="In squared meters"  />
+          </li>
+          <li>
+            <label>Power utilization<span class="required">*</span></label>
+            <input type="text" name="power_utilization" id="power_utilization" class="field-long" placeholder="Provide value between 0.01 and 1" />
           </li>
           <li>
             <input type="submit" value="Calculate">
@@ -23,6 +28,14 @@
       </ul>
     </form>
     <style type="text/css">
+      .title {
+        margin:20px 0 3px 0;
+        padding:0px;
+        display:block;
+        font-weight: bold;
+        font: 22px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        text-align: center;
+      }
       .form-style-1 {
         margin:10px auto;
         max-width: 400px;
@@ -106,6 +119,6 @@
       .form-style-1 .required{
         color:red;
       }
-      </style>
+    </style>
   </body>
 </html>

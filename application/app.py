@@ -11,7 +11,7 @@ x = generate()
 
 
 def gen_prompt(devices, no_adults, no_children, month, house_age, house_size):
-    insert_var = "tell me the average monthly power consumption of a household with the following devices: {}. Household with {} adults and {} children in Poland, in {}. Size of house: {}, age: {} years. Provide just a value, nothing else. Response: <power consumption>".format(
+    insert_var = "tell me the average monthly power consumption of a household with the following devices: {}. Household with {} adults and {} children in Poland, in {}. Size of house: {}, age: {} years. Provide just anapproximed value, without additional comments.".format(
         devices, no_adults, no_children, month, house_size, house_age)
     return insert_var
 
@@ -29,7 +29,8 @@ def calculate():
     month = request.form['month']
     house_age = request.form['house_age']
     house_size = request.form['house_size']
-    square_m_solars = request.form['solar_area']
+    solar_area = request.form['solar_area']
+    power_utilization = request.form['power_utilization']
 
     prompt = gen_prompt(devices, adults, children,
                         month, house_age, house_size)
@@ -41,7 +42,10 @@ def calculate():
 
     res = response['choices'][0]['text']
 
-    return render_template('result.html', result=res, sunlight=x)
+    calculated_value = int(x) * int(solar_area) * int(power_utilization)
+    sunshine = "{} kWh per month".format(calculated_value)
+
+    return render_template('result.html', result=res, sunshine=sunshine)
 
 
 if __name__ == '__main__':

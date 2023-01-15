@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Calculation Result</title>
+    <title>Calculation Result</title>\
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+  
+      .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      .title {
+        margin:20px 0 3px 0;
+        padding:0px;
+        display:block;
+        font-weight: bold;
+        font: 22px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    <h1>Result</h1>
-    <p>The result of the calculation is: {{ result }}</p>
-    <p>Solar prediction: {{ sunlight }}</p>
+    <div class="center">
+      <h1 class="title">Result of calculations</h1>
+      <h3>Household consumption - {{ result }}</h3>
+      <h3>Prediction of solar panels energy production - {{ sunshine }}</h3>
+    </div>
   </body>
 </html>
